@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,6 @@ Route::get('/', function () {
 Route::get('/menri',function(){
  return "Death to ming";
  });
+
+
 

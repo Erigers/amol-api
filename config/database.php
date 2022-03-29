@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mongodb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,6 +34,12 @@ return [
     */
 
     'connections' => [
+
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'dsn' => env('DB_DSN',"mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"),
+            'database' => env('DB_DATABASE', 'amol-api-database'),
+        ],
 
         'sqlite' => [
             'driver' => 'sqlite',
