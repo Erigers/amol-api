@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AddressController;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,20 +17,25 @@ use Laravel\Socialite\Facades\Socialite;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::resource("address",AddressController::class)->only([
+//protected routess
+Route::group(['middleware' => ['auth:sanctum']], function (){
+    Route::resource("address",AddressController::class)->only([
         "destroy","store","show","update"
-]);
-
-
-Route::get('/auth/redirect', function () {
-    return Socialite::driver('github')->redirect();
+    ]);
+    Route::post('/logout',[AuthController::class,'logout']);
 });
+Route::post("/register",[AuthController::class,'register']);
+Route::post('/login',[AuthController::class,'login']);
 
-Route::get('/auth/callback', function () {
-    $user = Socialite::driver('github')->user();
+//
+//Route::get('/auth/redirect', function () {
+//    return Socialite::driver('github')->redirect();
+//});
+//
+//Route::get('/auth/callback', function () {
+//    $user = Socialite::driver('github')->user();
+//
+//    // $user->token
+//});
 
-    // $user->token
-});
+
