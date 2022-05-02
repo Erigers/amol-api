@@ -24,7 +24,8 @@ class GithubController extends Controller
             $user = User::where('email', $google_user->email)->first();
             if ($user){
                 Auth::login($user);
-                return view('user',[ 'user' => $user]);
+                $accessToken = Auth::user()->createToken('authToken')->accessToken;
+                return response(['user'=> Auth::user(), 'access_token' => $accessToken]);
             } else {
                 $new_user = User::create([
                     'name' => ucwords($google_user->name),
@@ -35,7 +36,8 @@ class GithubController extends Controller
                 ]);
 
                 Auth::login($new_user);
-                return view('user', ['user' => $new_user]);
+                $accessToken = Auth::user()->createToken('authToken')->accessToken;
+                return response(['user'=> Auth::user(), 'access_token' => $accessToken]);
             }
 
         } catch(\Throwable $th){

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FacebookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
@@ -24,4 +25,4 @@ Route::get('login/google/callback', [GoogleController::class, 'callback']);
 
 Route::get('login/github/callback', [GithubController::class, 'callback']);
 
-Route::get('login/facebook/callback', [GithubController::class, 'callback']);
+Route::get('login/facebook/callback', [FacebookController::class, 'callback']);
